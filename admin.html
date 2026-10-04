@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4efe7">
+  <meta name="robots" content="noindex">
+  <title>Platzplan – Bearbeiten</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=20261004p">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-mark">PP</span><span>Platzplan · Bearbeiten</span></a>
+  </header>
+
+  <main class="shell">
+    <section id="loginBox" class="admin-login">
+      <h2>Anmelden</h2>
+      <p>Passwort eingeben, um Termine zu bearbeiten. Der öffentliche Plan bleibt davon unberührt.</p>
+      <input id="pwInput" type="password" placeholder="Passwort" autocomplete="current-password">
+      <button class="primary-button" id="loginButton">Anmelden</button>
+      <p class="admin-error" id="loginError" hidden></p>
+    </section>
+
+    <section id="editorBox" hidden>
+      <a class="back-link" href="index.html">← Zurück zum Plan</a>
+      <div class="admin-bar">
+        <button class="primary-button" id="newButton"><span>+</span>Neuer Termin</button>
+        <button class="secondary-button" id="importButton">⬆ Datei importieren</button>
+        <input id="fileInput" type="file" accept=".csv,.xlsx,.xls" hidden>
+        <div class="hall-buttons" id="hallButtons" role="group" aria-label="Platz wählen"></div>
+        <span class="count" id="listCount">–</span>
+      </div>
+      <div class="admin-list" id="eventList"></div>
+    </section>
+  </main>
+
+  <dialog id="eventDialog"><form method="dialog" id="eventForm">
+    <div class="dialog-head">
+      <div><p class="eyebrow">Termin verwalten</p><h2 id="dialogTitle">Neuer Termin</h2></div>
+      <button class="close-button" value="cancel" type="button" id="dialogClose" aria-label="Schließen">×</button>
+    </div>
+    <input type="hidden" id="eventId">
+    <div class="form-grid">
+      <label>Bezeichnung<input id="titleInput" required placeholder="z. B. Handball – Jugend E"></label>
+      <label>Platz<select id="hallInput" required></select></label>
+      <label>Datum<input id="dateInput" type="date" required></label>
+      <label>Beginn<input id="startInput" type="time" required></label>
+      <label>Ende<input id="endInput" type="time" required></label>
+      <label>Art<select id="typeInput">
+        <option value="Training">Training</option>
+        <option value="Spiel">Spiel</option>
+        <option value="Veranstaltung">Veranstaltung</option>
+      </select></label>
+    </div>
+    <label class="recurring-check"><input id="recurringInput" type="checkbox"> <span>Wiederholt sich regelmäßig</span></label>
+    <div class="recurrence-fields" id="recurrenceFields">
+      <label>Wiederholung<select id="frequencyInput">
+        <option value="Jede Woche">Jede Woche</option>
+        <option value="Alle 2 Wochen">Alle 2 Wochen</option>
+      </select></label>
+      <label>Wochentag<select id="weekdayInput">
+        <option value="Montag">Montag</option>
+        <option value="Dienstag">Dienstag</option>
+        <option value="Mittwoch">Mittwoch</option>
+        <option value="Donnerstag">Donnerstag</option>
+        <option value="Freitag">Freitag</option>
+        <option value="Samstag">Samstag</option>
+        <option value="Sonntag">Sonntag</option>
+      </select></label>
+      <label>Endet am<input id="untilInput" type="date"></label>
+    </div>
+    <div class="form-actions">
+      <button class="secondary-button" value="cancel" type="button" id="cancelButton">Abbrechen</button>
+      <button class="danger-button" type="button" id="deleteButton">Löschen</button>
+      <button class="primary-button" value="default" type="submit">Speichern</button>
+    </div>
+  </form></dialog>
+
+  <dialog id="importDialog"><form method="dialog" id="importForm">
+    <div class="dialog-head">
+      <div><p class="eyebrow">Datei importieren</p><h2 id="importTitle">Vorschau</h2></div>
+      <button class="close-button" value="cancel" type="button" id="importClose" aria-label="Schließen">×</button>
+    </div>
+    <p class="admin-note" id="importInfo"></p>
+    <div class="admin-preview" id="importPreview"></div>
+    <div class="form-actions">
+      <button class="secondary-button" value="cancel" type="button" id="importCancel">Abbrechen</button>
+      <button class="danger-button" type="button" id="importReplace">Alles ersetzen</button>
+      <button class="primary-button" type="button" id="importAppend">Ergänzen</button>
+    </div>
+  </form></dialog>
+
+  <div class="toast" id="toast" role="status"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="admin.js?v=20261004p"></script>
+</body>
+</html>

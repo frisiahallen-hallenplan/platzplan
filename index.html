@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4efe7">
+  <title>Platzplan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=20261004p">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#"><span class="brand-mark">PP</span><span>Platzplan</span></a>
+    <div class="topbar-actions"><span class="sync-status"><i></i> Aktuelle Daten aus Google Sheets</span><a class="icon-button" href="admin.html" title="Anmelden zum Bearbeiten" aria-label="Admin-Login">🔒</a><button class="icon-button" id="helpButton" aria-label="Hilfe">?</button></div>
+  </header>
+
+  <main class="shell">
+    <section class="intro"><h1>SV Frisia 03 Platzbelegung</h1></section>
+
+    <section class="toolbar" aria-label="Planfilter">
+      <div class="date-nav"><button class="small-button" id="previousWeek" aria-label="Vorherige Woche">←</button><button class="date-label" id="todayButton">Heute</button><button class="small-button" id="nextWeek" aria-label="Nächste Woche">→</button></div>
+      <div class="toolbar-divider"></div><label class="select-wrap"><span>Ansicht</span><select id="viewSelect"><option value="week">Woche</option><option value="month">Monat</option><option value="day">Tag</option></select></label><div class="hall-buttons" id="hallButtons" role="group" aria-label="Platz wählen"></div>
+    </section>
+
+    <section class="summary-row"><div><strong id="weekTitle">Diese Woche</strong><span id="dateRange"></span></div><span class="event-count" id="eventCount">0 Termine</span></section>
+    <section class="planner" id="planner" aria-live="polite"></section>
+
+    <section class="bottom-row"><div class="hall-legend"><strong>Niko-Nissen-Stadion:</strong> <span class="legend-dot platz-a"></span>A-Platz <span class="legend-dot platz-b"></span>B-Platz <span class="legend-dot platz-c"></span>C-Platz <span class="legend-dot platz-faust"></span>Faustballplatz &nbsp;·&nbsp; <strong>Helmut-Hennig-Stadion:</strong> <span class="legend-dot platz-kunst"></span>Kunstrasenplatz <span class="legend-dot platz-rasen"></span>Rasenplatz</div></section>
+  </main>
+
+  <dialog id="eventDialog"><form method="dialog" id="eventForm"><div class="dialog-head"><div><p class="eyebrow">Termin verwalten</p><h2 id="dialogTitle">Neuer Termin</h2></div><button class="close-button" value="cancel" aria-label="Schließen">×</button></div><input type="hidden" id="eventId">
+    <div class="form-grid"><label>Bezeichnung<input id="titleInput" required placeholder="z. B. Jugendtraining"></label><label>Platz<select id="hallInput" required></select></label><label>Datum<input id="dateInput" type="date" required></label><label>Beginn<input id="startInput" type="time" required></label><label>Ende<input id="endInput" type="time" required></label><label>Art<select id="typeInput"><option value="training">Training</option><option value="game">Spiel</option><option value="event">Veranstaltung</option></select></label></div>
+    <label class="recurring-check"><input id="recurringInput" type="checkbox"> <span>Wiederholt sich regelmäßig</span></label><div class="recurrence-fields" id="recurrenceFields"><label>Wiederholung<select id="frequencyInput"><option value="weekly">Jede Woche</option><option value="biweekly">Alle 2 Wochen</option></select></label><label>An diesen Tagen<div class="day-picker" id="dayPicker"></div></label><label>Endet am<input id="untilInput" type="date"></label></div>
+    <div class="form-actions"><button class="secondary-button close-form" value="cancel">Abbrechen</button><button class="danger-button" type="button" id="deleteButton">Löschen</button><button class="primary-button" value="default" type="submit">Termin speichern</button></div>
+  </form></dialog>
+  <dialog id="detailsDialog"><div class="dialog-head"><div><p class="eyebrow">Terminübersicht</p><h2 id="detailsTitle">Termin</h2></div><form method="dialog"><button class="close-button" aria-label="Schließen">×</button></form></div><div class="details-list"><div><span>Platz</span><strong id="detailsHall"></strong></div><div><span>Datum</span><strong id="detailsDate"></strong></div><div><span>Uhrzeit</span><strong id="detailsTime"></strong></div><div><span>Art</span><strong id="detailsType"></strong></div><div><span>Wiederholung</span><strong id="detailsRepeat"></strong></div></div><form method="dialog" class="details-close"><button class="secondary-button">Schließen</button></form></dialog>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js?v=20261004p"></script>
+</body>
+</html>
