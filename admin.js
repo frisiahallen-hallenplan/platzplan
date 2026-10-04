@@ -18,7 +18,7 @@
   window.addEventListener('unhandledrejection', e => zeigeFehlerBanner(String(e.reason && e.reason.message ? e.reason.message : e.reason)));
 })();
 
-const ENDPOINT = 'HIER-DIE-WEB-APP-URL-DES-PLATZPLANS';
+const ENDPOINT = 'https://script.google.com/macros/s/AKfycbxDuJAJ2cbEV0tCI8QBCe8t1WWQpBxwTLfGJgOvBAdcC2Pm3Ihp622v3bfNl80h56oHUw/exec';
 const PW_KEY = 'platzplan-admin-pw';
 const halls = ['A-Platz', 'B-Platz', 'C-Platz', 'Faustballplatz', 'Kunstrasenplatz', 'Rasenplatz'];
 const hallClasses = {
